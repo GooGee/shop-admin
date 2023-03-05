@@ -1,0 +1,96 @@
+import useToastzzStore from "@/Store/useToastzzStore"
+import { DataProvider, HttpError, RaRecord } from "react-admin"
+import getErrorMessage, { getAxiosStatus } from "./getErrorMessage"
+import makeAxiosClient from "./makeAxiosClient"
+
+const client = makeAxiosClient()
+
+type T = any
+
+export default function makeDataProvider(): DataProvider {
+    return {
+        getList(path, params) {
+            params.sort.order = params.sort.order.toLowerCase()
+            return client
+                .get<CC.ApiPageResponse<T>>(path + "Page", { params })
+                .then((response) => convertResponse(response.data))
+                .catch(returnError)
+        },
+        getMany(path, params) {
+            return client
+                .get<CC.ApiItemzzResponse<T>>(path, {
+                    params: {
+                        ...params.meta,
+                        idzz: params.ids,
+                    },
+                })
+                .then((response) => ({ data: response.data.itemzz }))
+                .catch(returnError)
+        },
+        getManyReference(path, params) {
+            params.sort.order = params.sort.order.toLowerCase()
+            params.filter = {
+                [params.target]: params.id,
+            }
+            return client
+                .get<CC.ApiPageResponse<T>>(path + "Page", { params })
+                .then((response) => convertResponse(response.data))
+                .catch(returnError)
+        },
+        getOne(path, params) {
+            return client
+                .get<CC.ApiItemResponse<T>>(path + "/" + params.id, {
+                    params: params.meta,
+                })
+                .then((response) => ({ data: response.data.item }))
+                .catch(returnError)
+        },
+        create(path, params) {
+            return client
+                .post<CC.ApiItemResponse<T>>(path + "/0", params.data)
+                .then((response) => ({ data: response.data.item }))
+                .catch(returnError)
+        },
+        delete(path, params) {
+            return client
+                .delete<CC.ApiDataResponse<T>>(path + "/" + params.id)
+                .then((response) => ({ data: response.data.data }))
+                .catch(returnError)
+        },
+        deleteMany(path, params) {
+            return client
+                .delete<CC.ApiDataResponse<T>>(path, { params: { idzz: params.ids } })
+                .then((response) => ({ data: response.data.data }))
+                .catch(returnError)
+        },
+        update(path, params) {
+            return client
+                .put<CC.ApiItemResponse<T>>(path + "/" + params.id, params.data)
+                .then((response) => ({ data: response.data.item }))
+                .catch(returnError)
+        },
+        updateMany(path, params) {
+            return client
+                .put<CC.ApiItemzzResponse<T>>(path, { params })
+                .then((response) => ({ data: response.data.itemzz }))
+                .catch(returnError)
+        },
+    }
+}
+
+function convertResponse<T extends CC.IdItem>(response: CC.ApiPageResponse<T>) {
+    return {
+        data: response.page.data,
+        total: response.page.total,
+    }
+}
+
+function returnError(error: unknown) {
+    // show error in toast instead
+    useToastzzStore.getState().showErrorOf(error)
+    return Promise.reject()
+
+    return Promise.reject(
+        new HttpError(getErrorMessage(error), getAxiosStatus(error), error),
+    )
+}

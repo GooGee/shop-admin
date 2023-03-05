@@ -1,0 +1,28 @@
+* {
+    margin: 0;
+}
+
+.MuiTableCell-root.w111 {
+    width: 111px;
+}
+
+.MuiTableRow-root .MuiTableCell-paddingCheckbox {
+    display: none;
+}
+
+.RaMenuItemLink-active,
+.RaMenuItemLink-active .RaMenuItemLink-icon {
+    color: #2196f3 !important;
+}
+
+.RaRichTextInput-editorContent .ProseMirror {
+    min-height: 111px;
+}
+
+.RaSimpleShowLayout-row {
+    margin-top: 22px !important;
+}
+
+.RaSimpleShowLayout-row .MuiTypography-root {
+    font-size: 1em !important;
+}
