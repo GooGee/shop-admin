@@ -5,6 +5,7 @@ import {
     EditButton,
     List,
     NumberField,
+    ShowButton,
     TextField,
 } from "react-admin"
 import VoucherField from "../Part/Field/VoucherField"
@@ -26,6 +27,7 @@ export default function VoucherList() {
                 <TextField source="code" />
                 <TextField source="name" />
 
+                <ShowButton />
                 <EditButton />
                 <DeleteButton />
             </Datagrid>

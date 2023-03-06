@@ -3,9 +3,11 @@ import {
     CreateButton,
     Datagrid,
     DateField,
+    EditButton,
     ImageField,
     List,
     NumberField,
+    ShowButton,
     TextField,
 } from "react-admin"
 import ShowIconButton from "../Part/Button/ShowIconButton"
@@ -30,8 +32,8 @@ export default function AdminList() {
 
                 <TextField source="email" />
 
-                <ShowIconButton />
-                <ShowIconButton type="edit" />
+                <ShowButton />
+                <EditButton />
                 <SuspendButton resource={EntityEnum.Admin} />
             </Datagrid>
         </List>

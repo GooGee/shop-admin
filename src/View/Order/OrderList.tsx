@@ -5,6 +5,7 @@ import {
     List,
     NumberField,
     ReferenceField,
+    ShowButton,
     TextField,
 } from "react-admin"
 import ShowIconButton from "../Part/Button/ShowIconButton"
@@ -43,7 +44,7 @@ export default function OrderList() {
 
                 <TextField source="statusPayment" label="Payment" />
 
-                <ShowIconButton />
+                <ShowButton />
             </DatagridConfigurable>
         </List>
     )

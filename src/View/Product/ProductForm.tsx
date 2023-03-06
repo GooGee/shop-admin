@@ -25,7 +25,9 @@ export default function ProductForm() {
 
             <PriceInput source="price" />
 
-            <NumberInput source="stock" min={0} required />
+            <NumberInput source="discount" min={0} defaultValue={0} required />
+
+            <NumberInput source="stock" min={0} defaultValue={0} required />
 
             <SelectImageInput
                 source="image"
@@ -33,8 +35,6 @@ export default function ProductForm() {
             />
 
             <SelectImagezzInput source="imagezz" amount={11} />
-
-            <NumberInput source="discount" min={0} required />
 
             <CategoryGroup source="categoryId" />
 

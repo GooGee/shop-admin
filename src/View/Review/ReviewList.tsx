@@ -5,6 +5,7 @@ import {
     List,
     NumberField,
     ReferenceField,
+    ShowButton,
     TextField,
 } from "react-admin"
 import ShowIconButton from "../Part/Button/ShowIconButton"
@@ -44,7 +45,7 @@ export default function ReviewList() {
 
                 <ShortTextField source="text" />
 
-                <ShowIconButton type="show" />
+                <ShowButton />
             </Datagrid>
         </List>
     )

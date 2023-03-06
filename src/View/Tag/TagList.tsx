@@ -2,6 +2,8 @@ import {
     CreateButton,
     Datagrid,
     DateField,
+    DeleteButton,
+    EditButton,
     ImageField,
     List,
     NumberField,
@@ -27,8 +29,8 @@ export default function TagList() {
 
                 <TextField source="name" />
 
-                <ShowIconButton type="edit" />
-                <DeleteIconButton />
+                <EditButton />
+                <DeleteButton />
             </Datagrid>
         </List>
     )

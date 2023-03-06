@@ -30,8 +30,9 @@ export default function UserForm() {
                     target="userId"
                 >
                     <Datagrid bulkActionButtons={<></>} isRowSelectable={() => false}>
-                        <TextField source="text" />
+                        <TextField source="text" label="Street" />
                         <TextField source="zip" />
+                        <TextField source="name" />
                         <TextField source="phone" />
                     </Datagrid>
                 </ReferenceManyField>

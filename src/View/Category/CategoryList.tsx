@@ -3,9 +3,12 @@ import {
     CreateButton,
     Datagrid,
     DateField,
+    DeleteButton,
+    EditButton,
     ImageField,
     List,
     NumberField,
+    ShowButton,
     TextField,
 } from "react-admin"
 import DeleteIconButton from "../Part/Button/DeleteIconButton"
@@ -29,9 +32,9 @@ export default function CategoryList() {
 
                 <ImageField source="image" />
 
-                <ShowIconButton />
-                <ShowIconButton type="edit" />
-                <DeleteIconButton />
+                <ShowButton />
+                <EditButton />
+                <DeleteButton redirect="" />
             </Datagrid>
         </List>
     )

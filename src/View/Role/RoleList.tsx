@@ -2,9 +2,12 @@ import {
     CreateButton,
     Datagrid,
     DateField,
+    DeleteButton,
+    EditButton,
     ImageField,
     List,
     NumberField,
+    ShowButton,
     TextField,
 } from "react-admin"
 import DeleteIconButton from "../Part/Button/DeleteIconButton"
@@ -29,9 +32,9 @@ export default function RoleList() {
 
                 <TextField source="guard_name" />
 
-                <ShowIconButton />
-                <ShowIconButton type="edit" />
-                <DeleteIconButton />
+                <ShowButton />
+                <EditButton />
+                <DeleteButton />
             </Datagrid>
         </List>
     )

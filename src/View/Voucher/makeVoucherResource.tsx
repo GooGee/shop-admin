@@ -3,6 +3,7 @@ import { Create, Edit } from "react-admin"
 import CanAccess from "../CanAccess"
 import VoucherForm from "./VoucherForm"
 import VoucherList from "./VoucherList"
+import VoucherShow from "./VoucherShow"
 
 export default function makeVoucherResource() {
     return {
@@ -24,6 +25,11 @@ export default function makeVoucherResource() {
         list: (
             <CanAccess permission={PermissionEnum.ReadPageVoucher}>
                 <VoucherList></VoucherList>
+            </CanAccess>
+        ),
+        show: (
+            <CanAccess permission={PermissionEnum.ReadOneVoucher}>
+                <VoucherShow></VoucherShow>
             </CanAccess>
         ),
     }

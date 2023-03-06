@@ -1,4 +1,4 @@
-import { Datagrid, List, NumberField, TextField } from "react-admin"
+import { Datagrid, DeleteButton, List, NumberField, TextField } from "react-admin"
 import DeleteIconButton from "../Part/Button/DeleteIconButton"
 
 export default function FileInfoList() {
@@ -15,7 +15,7 @@ export default function FileInfoList() {
 
                 <TextField source="mime" />
 
-                <DeleteIconButton />
+                <DeleteButton />
             </Datagrid>
         </List>
     )

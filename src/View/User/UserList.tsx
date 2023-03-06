@@ -1,5 +1,12 @@
 import { EntityEnum } from "@/TypeScriptEnum"
-import { Datagrid, DateField, List, NumberField, TextField } from "react-admin"
+import {
+    Datagrid,
+    DateField,
+    List,
+    NumberField,
+    ShowButton,
+    TextField,
+} from "react-admin"
 import ShowIconButton from "../Part/Button/ShowIconButton"
 import PriceField from "../Part/Field/PriceField"
 import SuspendButton from "./SuspendButton"
@@ -18,7 +25,7 @@ export default function UserList() {
                 <NumberField source="aaOrder" label="Order" />
                 <PriceField source="aaSpend" label="Spend" />
 
-                <ShowIconButton />
+                <ShowButton />
                 <SuspendButton resource={EntityEnum.User} />
             </Datagrid>
         </List>

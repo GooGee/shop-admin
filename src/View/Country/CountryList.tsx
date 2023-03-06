@@ -30,7 +30,7 @@ export default function CountryList() {
 
                 <TextField source="name" />
 
-                <ShowIconButton type="edit" />
+                <EditButton />
                 <DeleteButton />
             </Datagrid>
         </List>
