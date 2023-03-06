@@ -89,7 +89,7 @@ export default function Dashboard() {
                         marginTop={1}
                     >
                         <h3>
-                            {new Intl.NumberFormat().format(itemzz[0]?.amount ?? 0)}
+                            +{new Intl.NumberFormat().format(itemzz[0]?.amount ?? 0)}
                         </h3>
                         <Box color={percentage < 0 ? red.A400 : green.A700}>
                             {percentage > 0 ? "+" : ""}

@@ -26,9 +26,7 @@ export default function OrderList() {
             >
                 <NumberField source="id" />
                 <DateField source="dtCreate" label="Date Create" cellClassName="w111" />
-                <DateField source="dtPay" label="Date Pay" cellClassName="w111" />
-
-                <PriceField source="sum" label="Total" />
+                <DateField source="dtPay" label="Date Pay" showTime />
 
                 <ReferenceField
                     source="userId"
@@ -38,6 +36,8 @@ export default function OrderList() {
                 >
                     <TextField source="name" />
                 </ReferenceField>
+
+                <PriceField source="sum" label="Total" />
 
                 <OrderStatusField source="status" />
 

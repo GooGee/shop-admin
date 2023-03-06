@@ -3,8 +3,8 @@ import makeAxiosClient from "../Service/makeAxiosClient"
 
 const client = makeAxiosClient()
 
-export function readMe() {
-    return client.get<CC.ApiItemResponse<CC.Me>>("/Me/0")
+function readMe(query: string) {
+    return client.get<CC.ApiItemResponse<CC.Me>>("/Me/0" + query)
 }
 
 export default function makeAuthProvider(): AuthProvider {
@@ -37,19 +37,19 @@ export default function makeAuthProvider(): AuthProvider {
         },
         // called when the user navigates to a new location, to check for authentication
         checkAuth() {
-            return readMe().then((response) =>
+            return readMe("?checkAuth").then((response) =>
                 response.data.item === undefined
                     ? Promise.reject(response)
                     : Promise.resolve(),
             )
         },
         getIdentity() {
-            return readMe().then((response) => response.data.item)
+            return readMe("?getIdentity").then((response) => response.data.item)
         },
         // called when the user navigates to a new location, to check for permissions / roles
         getPermissions(params) {
             // console.log(params)
-            return readMe()
+            return readMe("?getPermissions")
                 .then(function (response) {
                     if (response.data.item.permissionzz.includes(params.permission)) {
                         return response.data.item

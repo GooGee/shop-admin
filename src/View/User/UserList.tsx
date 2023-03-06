@@ -10,7 +10,7 @@ export default function UserList() {
         <List actions={<UserTopToolbar />} sort={{ field: "id", order: "DESC" }}>
             <Datagrid bulkActionButtons={<></>} isRowSelectable={() => false}>
                 <NumberField source="id" />
-                <DateField source="dtCreate" label="Date Create" />
+                <DateField source="dtCreate" label="Date Create" showTime />
                 <DateField source="dtDelete" label="Suspend" />
 
                 <TextField source="name" />

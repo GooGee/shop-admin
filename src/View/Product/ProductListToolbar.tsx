@@ -11,6 +11,7 @@ import {
     SelectInput,
     SelectColumnsButton,
     DateInput,
+    ExportButton,
 } from "react-admin"
 
 const Filterzz = [
@@ -40,6 +41,9 @@ export default function ProductListToolbar() {
 
             <Grid alignItems="start" container direction="column" width={111}>
                 <CreateButton />
+                <ExportButton />
+            </Grid>
+            <Grid alignItems="start" container direction="column" width={111}>
                 <FilterButton filters={Filterzz} />
                 <SelectColumnsButton />
             </Grid>

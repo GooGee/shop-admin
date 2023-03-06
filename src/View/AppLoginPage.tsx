@@ -1,22 +1,37 @@
 import getErrorMessage from "@/Service/getErrorMessage"
 import AccountCircleIcon from "@mui/icons-material/AccountCircle"
 import { Button, Card, CardContent, CircularProgress, Grid, Stack } from "@mui/material"
+import { useEffect } from "react"
 import {
     Form,
     LoginFormProps,
     required,
     TextInput,
+    useGetIdentity,
     useLogin,
     useNotify,
+    useRedirect,
     useSafeSetState,
     useTranslate,
 } from "react-admin"
 
 export default function AppLoginPage(props: LoginFormProps) {
+    const { data, isLoading, error } = useGetIdentity()
+    const redirect = useRedirect()
     const [loading, setLoading] = useSafeSetState(false)
     const login = useLogin()
     const translate = useTranslate()
     const notify = useNotify()
+
+    useEffect(() => {
+        if (isLoading) {
+            return
+        }
+
+        if (data) {
+            redirect("/dashboard")
+        }
+    }, [isLoading])
 
     return (
         <Grid

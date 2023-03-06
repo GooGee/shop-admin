@@ -1,0 +1,38 @@
+name: Release
+
+on:
+    push:
+        tags:
+            - "v*.*.*"
+
+permissions:
+    contents: write
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        steps:
+            -   uses: actions/checkout@v3
+
+            -   name: Use Node.js 16.x
+                uses: actions/setup-node@v3
+                with:
+                    node-version: '16.x'
+
+            -   name: Install dependencies
+                run: yarn --frozen-lockfile
+
+            -   name: Build
+                run: npm run build
+
+            -   name: Zip dist
+                uses: thedoctor0/zip-release@0.7.1
+                with:
+                    filename: 'dist.zip'
+                    path: dist
+
+            -   name: Release
+                uses: softprops/action-gh-release@v1
+                with:
+                    files: dist.zip
