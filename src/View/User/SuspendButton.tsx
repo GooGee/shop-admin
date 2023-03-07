@@ -1,6 +1,7 @@
 import getErrorMessage from "@/Service/getErrorMessage"
 import { EntityEnum } from "@/TypeScriptEnum"
 import useToastzzStore from "@/Store/useToastzzStore"
+import BlockIcon from "@mui/icons-material/Block"
 import { Button } from "@mui/material"
 import { useDelete, useRecordContext, useRefresh } from "react-admin"
 
@@ -26,6 +27,7 @@ export default function SuspendButton(property: Property) {
     return (
         <Button
             color={rc.dtDelete ? "primary" : "error"}
+            startIcon={rc.dtDelete ? null : <BlockIcon />}
             size="small"
             onClick={function () {
                 updateOne(property.resource, { id: rc.id }, option)

@@ -29,7 +29,7 @@ export default function AppLoginPage(props: LoginFormProps) {
         }
 
         if (data) {
-            redirect("/dashboard")
+            redirect("/")
         }
     }, [isLoading])
 
