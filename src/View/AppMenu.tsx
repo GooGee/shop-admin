@@ -1,7 +1,7 @@
 import { PermissionEnum } from "@/TypeScriptEnum"
 import SettingsIcon from "@mui/icons-material/Settings"
 import { CircularProgress, Grid } from "@mui/material"
-import { Menu, useGetIdentity } from "react-admin"
+import { Menu, useAuthenticated, useGetIdentity } from "react-admin"
 import makeAdminResource from "./Admin/makeAdminResource"
 import makeAttributeResource from "./Attribute/makeAttributeResource"
 import makeCategoryResource from "./Category/makeCategoryResource"
@@ -18,6 +18,7 @@ import makeUserResource from "./User/makeUserResource"
 import makeVoucherResource from "./Voucher/makeVoucherResource"
 
 export default function AppMenu() {
+    useAuthenticated()
     const result = useGetIdentity()
 
     if (result.isLoading) {
@@ -32,6 +33,10 @@ export default function AppMenu() {
                 <CircularProgress />
             </Grid>
         )
+    }
+
+    if (result.data === undefined) {
+        return null
     }
 
     const user = result.data as CC.Me
