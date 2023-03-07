@@ -29,7 +29,7 @@ export default function makeAuthProvider(): AuthProvider {
                 if ("status" in data) {
                     if (data.status === 401) {
                         // login required
-                        return Promise.reject(data)
+                        return Promise.reject()
                     }
                 }
             }
@@ -37,30 +37,37 @@ export default function makeAuthProvider(): AuthProvider {
         },
         // called when the user navigates to a new location, to check for authentication
         checkAuth() {
-            return readMe("?checkAuth").then((response) =>
-                response.data.item === undefined
-                    ? Promise.reject(response)
-                    : Promise.resolve(),
-            )
+            return readMe("?checkAuth")
+                .then((response) =>
+                    response.data.item === undefined
+                        ? Promise.reject(response)
+                        : Promise.resolve(),
+                )
+                .catch(() => Promise.reject())
         },
         getIdentity() {
-            return readMe("?getIdentity").then((response) => {
-                const item = response.data.item as UserIdentity
-                item.fullName = item.name
-                return item
-            })
+            return readMe("?getIdentity")
+                .then((response) => {
+                    const item = response.data.item as UserIdentity
+                    item.fullName = item.name
+                    return item
+                })
+                .catch(() => Promise.reject())
         },
         // called when the user navigates to a new location, to check for permissions / roles
         getPermissions(params) {
             // console.log(params)
             return readMe("?getPermissions")
                 .then(function (response) {
-                    if (response.data.item.permissionzz.includes(params.permission)) {
-                        return response.data.item
+                    const permissionzz = response.data.item.permissionzz
+                    if (permissionzz) {
+                        if (permissionzz.includes(params.permission)) {
+                            return response.data.item
+                        }
                     }
                     return null
                 })
-                .catch(() => Promise.resolve(null))
+                .catch(() => Promise.reject())
         },
     }
 }
