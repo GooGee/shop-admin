@@ -4,7 +4,7 @@ enum OrderStatus {
     Placed = "Placed",
     Cancelled = "Cancelled",
 
-    PaymentPayed = "Payed",
+    PaymentPaid = "Paid",
 
     Fulfilled = "Fulfilled",
     Received = "Received",

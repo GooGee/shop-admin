@@ -24,7 +24,7 @@ export default function OrderTimeLine(property: UseRecordContextParams<any>) {
             return itemzz
         }
 
-        itemzz.push(new TimeData(rc.dtPay, "Payed"))
+        itemzz.push(new TimeData(rc.dtPay, "Paid"))
         itemzz.push(new TimeData(rc.dtFulfill, "Fulfilled"))
 
         if (rc.dtReturn) {

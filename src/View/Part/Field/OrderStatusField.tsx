@@ -18,7 +18,7 @@ export default function OrderStatusField(
     const record = useRecordContext(property)
 
     let color: string = grey[900]
-    if (record.statusPayment === OrderStatus.PaymentPayed) {
+    if (record.statusPayment === OrderStatus.PaymentPaid) {
         color = ColorMap.get(record.status) ?? color
     }
     return <TextField source="status" color={color} />

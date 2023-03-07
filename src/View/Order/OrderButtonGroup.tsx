@@ -72,7 +72,7 @@ export default function OrderButtonGroup(property: UseRecordContextParams<any>) 
                 disabled={
                     !(
                         rc.status === OrderStatus.Placed &&
-                        rc.statusPayment === OrderStatus.PaymentPayed
+                        rc.statusPayment === OrderStatus.PaymentPaid
                     )
                 }
                 onClick={function () {
@@ -90,7 +90,7 @@ export default function OrderButtonGroup(property: UseRecordContextParams<any>) 
                 disabled={
                     !(
                         rc.status === OrderStatus.Returned &&
-                        rc.statusPayment === OrderStatus.PaymentPayed
+                        rc.statusPayment === OrderStatus.PaymentPaid
                     )
                 }
                 onClick={function () {

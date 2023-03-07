@@ -20,7 +20,7 @@ const Statuszz = [
 
 const PaymentStatuszz = [
     { id: "Unpaid", name: "Unpaid" },
-    { id: "Payed", name: "Payed" },
+    { id: "Paid", name: "Paid" },
     { id: "Refunded", name: "Refunded" },
 ]
 
