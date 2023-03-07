@@ -1,4 +1,4 @@
-import { AuthProvider } from "react-admin"
+import { AuthProvider, UserIdentity } from "react-admin"
 import makeAxiosClient from "../Service/makeAxiosClient"
 
 const client = makeAxiosClient()
@@ -44,7 +44,11 @@ export default function makeAuthProvider(): AuthProvider {
             )
         },
         getIdentity() {
-            return readMe("?getIdentity").then((response) => response.data.item)
+            return readMe("?getIdentity").then((response) => {
+                const item = response.data.item as UserIdentity
+                item.fullName = item.name
+                return item
+            })
         },
         // called when the user navigates to a new location, to check for permissions / roles
         getPermissions(params) {
