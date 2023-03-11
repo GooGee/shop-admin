@@ -1,7 +1,7 @@
 import { EntityEnum } from "@/TypeScriptEnum"
 import { Box } from "@mui/material"
 import { lightBlue } from "@mui/material/colors"
-import { useGetList, Loading } from "react-admin"
+import { useGetList } from "react-admin"
 import AppError from "../AppError"
 import RefreshPage from "../RefreshPage"
 import PermissionGroup from "./PermissionGroup"
@@ -18,7 +18,7 @@ export default function PermissionList(property: Property) {
         sort: { field: "moderator", order: "ASC" },
     })
 
-    if (property.owner.permissionzz === undefined) {
+    if (result.isLoading || property.owner.permissionzz === undefined) {
         return <RefreshPage loading={result.isLoading} />
     }
 
