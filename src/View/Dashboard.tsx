@@ -13,7 +13,7 @@ export default function Dashboard() {
 
     const { data, isLoading, error } = useGetOne(EntityEnum.Chart, {
         id: 0,
-        meta: { length: 30 },
+        meta: { length: 61 },
     })
 
     const tabzz = [EntityEnum.Order, EntityEnum.Product, EntityEnum.User, Revenue]
