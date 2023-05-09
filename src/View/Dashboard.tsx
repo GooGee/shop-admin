@@ -27,7 +27,7 @@ export default function Dashboard() {
     }
 
     function getItemzz(tab: string) {
-        let itemzz = get()
+        let itemzz = getSource(tab)
         if (itemzz.length === 0) {
             return []
         }
@@ -52,23 +52,28 @@ export default function Dashboard() {
             changezz[index - 1] = { ...itemzz[index - 1], amount: change }
         }
         return changezz
+    }
 
-        function get(): ChartNode[] {
-            if (tab === EntityEnum.Order) {
-                return data.orderzz
-            }
-            if (tab === EntityEnum.Product) {
-                return data.productzz
-            }
-            if (tab === EntityEnum.User) {
-                return data.userzz
-            }
-            return data.revenuezz
+    function getSource(tab: string): ChartNode[] {
+        if (tab === EntityEnum.Order) {
+            return data.orderzz
         }
+        if (tab === EntityEnum.Product) {
+            return data.productzz
+        }
+        if (tab === EntityEnum.User) {
+            return data.userzz
+        }
+        return data.revenuezz
     }
 
     function makeCard(tab: string) {
         const itemzz = getItemzz(tab)
+
+        let total = getSource(tab)[0]?.amount ?? 0
+        if (tab === Revenue) {
+            total = Math.ceil(total / 1e5)
+        }
 
         let percentage = 0
         if (itemzz.length > 1) {
@@ -88,6 +93,7 @@ export default function Dashboard() {
                         justifyContent="space-between"
                         marginTop={1}
                     >
+                        <h3>{new Intl.NumberFormat().format(total)}</h3>
                         <h3>
                             +{new Intl.NumberFormat().format(itemzz[0]?.amount ?? 0)}
                         </h3>
