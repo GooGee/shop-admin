@@ -16,7 +16,7 @@ export default function Dashboard() {
         meta: { length: 61 },
     })
 
-    const tabzz = [EntityEnum.Order, EntityEnum.Product, EntityEnum.User, Revenue]
+    const tabzz = [EntityEnum.Order, EntityEnum.User, Revenue]
 
     if (isLoading) {
         return <Loading />
@@ -94,9 +94,9 @@ export default function Dashboard() {
                         marginTop={1}
                     >
                         <h3>{new Intl.NumberFormat().format(total)}</h3>
-                        <h3>
+                        <Box>
                             +{new Intl.NumberFormat().format(itemzz[0]?.amount ?? 0)}
-                        </h3>
+                        </Box>
                         <Box color={percentage < 0 ? red.A400 : green.A700}>
                             {percentage > 0 ? "+" : ""}
                             {percentage.toFixed(1)} %
@@ -109,15 +109,9 @@ export default function Dashboard() {
 
     return (
         <Stack>
-            <Grid
-                container
-                direction="row"
-                justifyContent="space-around"
-                marginTop={2}
-                spacing={2}
-            >
+            <Grid container direction="row" marginTop={2} spacing={8}>
                 {tabzz.map((item) => (
-                    <Grid item key={item} xs={3}>
+                    <Grid item key={item} xs={4} style={{ paddingTop: 0 }}>
                         {makeCard(item)}
                     </Grid>
                 ))}
