@@ -1,3 +1,4 @@
+import makeChartData, { ChartNode } from "@/Service/makeChartData"
 import {
     Chart,
     ChartDataset,
@@ -17,34 +18,12 @@ Chart.defaults.elements.point.hoverRadius = 11
 Chart.defaults.interaction.intersect = false
 Chart.defaults.interaction.mode = "index"
 
-export interface ChartNode {
-    id: number
-    amount: number
-    dtCreate: string
-}
-
 interface Property {
     itemzz: ChartNode[]
 }
 
 export default function LineChart(property: Property) {
-    const itemzz = property.itemzz.slice()
-    if (itemzz.length === 0) {
-        itemzz.push({
-            id: 0,
-            amount: 0,
-            dtCreate: new Date().toISOString(),
-        })
-    }
-    if (itemzz.length === 1) {
-        const dt = new Date(Date.parse(itemzz[0].dtCreate))
-        dt.setDate(dt.getDate() - 1)
-        itemzz.push({
-            id: 1,
-            amount: 0,
-            dtCreate: dt.toISOString(),
-        })
-    }
+    const itemzz = makeChartData(property.itemzz)
 
     let recentzz = itemzz
     let oldzz: ChartNode[] = []

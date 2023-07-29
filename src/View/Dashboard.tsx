@@ -4,9 +4,14 @@ import { red, green } from "@mui/material/colors"
 import { useState } from "react"
 import { Loading, useGetOne } from "react-admin"
 import AppError from "./AppError"
-import LineChart, { ChartNode } from "./Part/LineChart"
+import LineChart from "./Part/LineChart"
+import PieChart from "./Part/PieChart"
+import { ChartNode, subtract } from "@/Service/makeChartData"
+import BarChart from "./Part/BarChart"
 
-const Revenue = "Revenue"
+const DayCount = 61
+
+export const Revenue = "Revenue"
 
 export default function Dashboard() {
     const [entity, setEntity] = useState<string>(EntityEnum.Order)
@@ -27,11 +32,11 @@ export default function Dashboard() {
     }
 
     function getItemzz(tab: string) {
-        let itemzz = getSource(tab)
+        let itemzz = getSource(tab, data)
         if (itemzz.length === 0) {
             return []
         }
-        if (itemzz.length < 15) {
+        if (itemzz.length < DayCount) {
             const dt = new Date(Date.parse(itemzz[itemzz.length - 1].dtCreate))
             itemzz = [
                 ...itemzz,
@@ -43,18 +48,10 @@ export default function Dashboard() {
             ]
         }
 
-        const changezz: ChartNode[] = new Array(itemzz.length - 1)
-        for (let index = 1; index < itemzz.length; index++) {
-            let change = itemzz[index - 1].amount - itemzz[index].amount
-            if (tab === Revenue) {
-                change = Math.ceil(change / 1e5)
-            }
-            changezz[index - 1] = { ...itemzz[index - 1], amount: change }
-        }
-        return changezz
+        return subtract(itemzz, tab)
     }
 
-    function getSource(tab: string): ChartNode[] {
+    function getSource(tab: string, data: Record<string, ChartNode[]>): ChartNode[] {
         if (tab === EntityEnum.Order) {
             return data.orderzz
         }
@@ -70,7 +67,7 @@ export default function Dashboard() {
     function makeCard(tab: string) {
         const itemzz = getItemzz(tab)
 
-        let total = getSource(tab)[0]?.amount ?? 0
+        let total = getSource(tab, data)[0]?.amount ?? 0
         if (tab === Revenue) {
             total = Math.ceil(total / 1e5)
         }
@@ -109,9 +106,9 @@ export default function Dashboard() {
 
     return (
         <Stack>
-            <Grid container direction="row" marginTop={2} spacing={8}>
+            <Grid container direction="row" marginTop={2} spacing={3}>
                 {tabzz.map((item) => (
-                    <Grid item key={item} xs={4} style={{ paddingTop: 0 }}>
+                    <Grid item key={item} xs={3} style={{ paddingTop: 0 }}>
                         {makeCard(item)}
                     </Grid>
                 ))}
@@ -131,7 +128,19 @@ export default function Dashboard() {
                 </ButtonGroup>
             </Grid>
 
-            <LineChart itemzz={getItemzz(entity)}></LineChart>
+            <Grid container direction="row">
+                <Grid item xs={9}>
+                    <LineChart itemzz={getItemzz(entity)}></LineChart>
+                </Grid>
+
+                <Grid item xs={3}>
+                    <BarChart
+                        itemzz={subtract(getSource(entity, data.monthSum), entity)}
+                        title={entity}
+                    ></BarChart>
+                    <PieChart map={data.orderCount}></PieChart>
+                </Grid>
+            </Grid>
         </Stack>
     )
 }
