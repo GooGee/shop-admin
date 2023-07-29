@@ -31,6 +31,21 @@ export default function Dashboard() {
         return <AppError error={error} />
     }
 
+    function count(day: number, tab: string) {
+        const itemzz = getSource(tab, data)
+        if (itemzz.length === 0) {
+            return 0
+        }
+        if (day >= itemzz.length) {
+            day = itemzz.length - 1
+        }
+        const amount = itemzz[0].amount - itemzz[day].amount
+        if (tab === Revenue) {
+            return Math.ceil(amount / 1e5)
+        }
+        return amount
+    }
+
     function getItemzz(tab: string) {
         let itemzz = getSource(tab, data)
         if (itemzz.length === 0) {
@@ -83,22 +98,33 @@ export default function Dashboard() {
         return (
             <Card>
                 <CardContent sx={{ p: 2 }}>
-                    <div>{tab}</div>
-                    <Stack
-                        alignItems="center"
-                        direction="row"
-                        justifyContent="space-between"
-                        marginTop={1}
-                    >
-                        <h3>{new Intl.NumberFormat().format(total)}</h3>
-                        <Box>
-                            +{new Intl.NumberFormat().format(itemzz[0]?.amount ?? 0)}
-                        </Box>
-                        <Box color={percentage < 0 ? red.A400 : green.A700}>
-                            {percentage > 0 ? "+" : ""}
-                            {percentage.toFixed(1)} %
-                        </Box>
-                    </Stack>
+                    <table className="table">
+                        <tbody>
+                            <tr>
+                                <td>{tab}</td>
+                                <td>1 day</td>
+                                <td>1 week</td>
+                                <td>1 month</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h3>{new Intl.NumberFormat().format(total)}</h3>
+                                </td>
+                                <td>
+                                    +
+                                    {new Intl.NumberFormat().format(
+                                        itemzz[0]?.amount ?? 0,
+                                    )}
+                                </td>
+                                <td>
+                                    +{new Intl.NumberFormat().format(count(7, tab))}
+                                </td>
+                                <td>
+                                    +{new Intl.NumberFormat().format(count(30, tab))}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </CardContent>
             </Card>
         )
@@ -106,9 +132,9 @@ export default function Dashboard() {
 
     return (
         <Stack>
-            <Grid container direction="row" marginTop={2} spacing={3}>
+            <Grid container direction="row" marginTop={2} spacing={6}>
                 {tabzz.map((item) => (
-                    <Grid item key={item} xs={3} style={{ paddingTop: 0 }}>
+                    <Grid item key={item} xs={4} style={{ paddingTop: 0 }}>
                         {makeCard(item)}
                     </Grid>
                 ))}

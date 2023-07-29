@@ -26,3 +26,7 @@
 .RaSimpleShowLayout-row .MuiTypography-root {
     font-size: 1em !important;
 }
+
+.table td {
+    padding: 0 11px;
+}
