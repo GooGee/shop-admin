@@ -11,6 +11,7 @@ export default defineConfig(function ({ mode }) {
             alias: [{ find: "@", replacement: "/src" }],
         },
         server: {
+            cors: true,
             proxy: {
                 "^/v1": {
                     target: env.VITE_URI,
