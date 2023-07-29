@@ -16,7 +16,6 @@ Chart.register(Legend, LinearScale, LineElement, PointElement, Title, Tooltip)
 Chart.defaults.elements.point.radius = 5
 Chart.defaults.elements.point.hoverRadius = 11
 Chart.defaults.interaction.intersect = false
-Chart.defaults.interaction.mode = "index"
 
 interface Property {
     itemzz: ChartNode[]
